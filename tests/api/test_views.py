@@ -5,7 +5,6 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-# Adjust this import path to your Reader model location
 from api.models import Reader
 
 

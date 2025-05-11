@@ -1,0 +1,23 @@
+[project]
+name = "momentum-api"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Kamil Broniowski",email = "kamil505@poczta.it"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "django (>=5.2.1,<6.0.0)",
+    "djangorestframework (>=3.16.0,<4.0.0)"
+]
+
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+flake8 = "^7.2.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

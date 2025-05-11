@@ -110,6 +110,8 @@ venv.bak/
 .spyderproject
 .spyproject
 .ropeproject
+.idea/
+.vscode/
 
 # mkdocs
 /site

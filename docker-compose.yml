@@ -21,9 +21,9 @@ services:
       db:
         condition: service_healthy
     command: >
-      bash -c "python manage.py makemigrations &&
-               python manage.py migrate &&
-               python manage.py collectstatic --noinput &&
+      bash -c "cd /app && python library/manage.py makemigrations &&
+               python library/manage.py migrate &&
+               python library/manage.py collectstatic --noinput &&
                gunicorn library.wsgi:application --bind 0.0.0.0:8000"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/books/')"]

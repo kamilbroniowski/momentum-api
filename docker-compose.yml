@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    image: momentum-api
+    container_name: momentum-api-web
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=django-insecure-change-this-in-production
+      - DEBUG=True
+      - DJANGO_SETTINGS_MODULE=library.settings
+      - POSTGRES_DB=momentum
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+    volumes:
+      # Mount for static files
+      - ./static:/app/library/static
+      # Mount for media files (user uploads)
+      - ./media:/app/library/media
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      bash -c "python manage.py migrate &&
+               python manage.py collectstatic --noinput &&
+               gunicorn library.wsgi:application --bind 0.0.0.0:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/books/')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  db:
+    image: postgres:15
+    container_name: momentum-api-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=momentum
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

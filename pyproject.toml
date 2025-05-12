@@ -26,5 +26,5 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "library.settings"
+DJANGO_SETTINGS_MODULE = "library.test_settings"
 pythonpath = ["library/"]

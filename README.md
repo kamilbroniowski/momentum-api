@@ -2,6 +2,41 @@
 
 A RESTful API for managing a library's book collection and reader information. This API allows you to create and manage books and readers, handle book checkouts, and track book availability.
 
+## Getting Started
+
+### Running with Docker Compose
+
+The application is containerized and can be easily run using Docker Compose with PostgreSQL as the database.
+
+1. Make sure you have Docker and Docker Compose installed on your system
+2. Create a `.env` file based on the provided `.env.sample` file:
+   ```bash
+   cp .env.sample .env
+   ```
+3. Start the application:
+   ```bash
+   docker compose up
+   ```
+4. The API will be available at http://localhost:8000/
+
+### Development Setup
+
+If you prefer to run the application locally:
+
+1. Install dependencies using Poetry:
+   ```bash
+   poetry install
+   ```
+2. Set up the PostgreSQL database and update the `.env` file with connection details
+3. Run migrations:
+   ```bash
+   python library/manage.py migrate
+   ```
+4. Start the development server:
+   ```bash
+   python library/manage.py runserver
+   ```
+
 ## API Endpoints
 
 ### Books

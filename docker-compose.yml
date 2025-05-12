@@ -21,7 +21,7 @@ services:
       db:
         condition: service_healthy
     command: >
-      bash -c "cd /app/library && python manage.py makemigrations &&
+      bash -c "cd /app/library &&
                python manage.py migrate &&
                python manage.py collectstatic --noinput &&
                gunicorn library.wsgi:application --bind 0.0.0.0:8000"

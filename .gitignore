@@ -54,7 +54,6 @@ cover/
 *.pot
 
 # Django
-migrations/
 *.log
 local_settings.py
 db.sqlite3

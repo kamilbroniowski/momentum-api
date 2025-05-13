@@ -34,7 +34,7 @@ class BookService:
         """
         Retrieve all books in the library.
         """
-        return Book.objects.all()
+        return Book.objects.select_related("borrower").all()
 
     @staticmethod
     def get_by_serial(serial_number):
@@ -42,7 +42,9 @@ class BookService:
         Get a book by its serial number or None if not found.
         """
         try:
-            return Book.objects.get(serial_number=serial_number)
+            return Book.objects.select_related("borrower").get(
+                serial_number=serial_number
+            )
         except Book.DoesNotExist:
             return None
 
